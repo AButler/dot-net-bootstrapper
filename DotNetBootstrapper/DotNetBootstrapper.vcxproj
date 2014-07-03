@@ -79,11 +79,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="DotNetBootstrapper.h" />
+    <ClInclude Include="DotNetVersion.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DotNetBootstrapper.cpp" />
+    <ClCompile Include="DotNetVersion.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DotNetBootstrapper.rc" />
