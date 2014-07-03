@@ -54,32 +54,42 @@ int APIENTRY _tWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpC
     // Check .NET is installed
     bool isDotNetFxInstalled = IsDotNetFxInstalled( szArgList[0] );
 
-    if( isDotNetFxInstalled ) {
-      // Create info objects
-      STARTUPINFO si;
-      PROCESS_INFORMATION pi;
-
-      ZeroMemory( &si, sizeof( si ) );
-      si.cb = sizeof( si );
-      ZeroMemory( &pi, sizeof( pi ) );
-
-      // Create command line
-      WCHAR commandLine[MAX_PATH];
-      _tcscpy_s( commandLine, _countof( commandLine ), _tcsninc( lpCmdLine, _tcslen( szArgList[0] ) + 1 ) );
-      
-      if( !CreateProcess( NULL, commandLine, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi ) ) {
-        MessageBox( NULL, _T( "Could not launch application" ), _T( ".NET Framework" ), MB_OK | MB_ICONERROR);
-        return 2;
-      }
-
-      WaitForSingleObject( pi.hProcess, INFINITE );
-
-      CloseHandle( pi.hProcess );
-      CloseHandle( pi.hThread );
-    } else {
-      MessageBox( NULL, _T( ".NET Framework is NOT installed" ), _T( ".NET Framework" ), MB_OK | MB_ICONERROR);
+    if( !isDotNetFxInstalled ) { 
+      // .NET isn't installed
+      MessageBox( NULL, _T( ".NET Framework is NOT installed" ), _T( ".NET Framework" ), MB_OK | MB_ICONERROR );
+      return 1;
     }
 
+    // Create info objects
+    STARTUPINFO si;
+    PROCESS_INFORMATION pi;
+    DWORD exitCode;
+
+    ZeroMemory( &si, sizeof( si ) );
+    si.cb = sizeof( si );
+    ZeroMemory( &pi, sizeof( pi ) );
+
+    // Create command line
+    WCHAR commandLine[MAX_PATH];
+    _tcscpy_s( commandLine, _countof( commandLine ), _tcsninc( lpCmdLine, _tcslen( szArgList[0] ) + 1 ) );
+      
+    if( !CreateProcess( NULL, commandLine, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi ) ) {
+      MessageBox( NULL, _T( "Could not launch application" ), _T( ".NET Framework" ), MB_OK | MB_ICONERROR);
+      return 2;
+    }
+
+    WaitForSingleObject( pi.hProcess, INFINITE );
+
+    if( !GetExitCodeProcess( pi.hProcess, &exitCode ) ) {
+      // If we couldn't get the exit code then assume all went OK
+      exitCode = 0;
+    }
+
+    CloseHandle( pi.hProcess );
+    CloseHandle( pi.hThread );
+
+    return exitCode;
+   
   } catch ( const std::invalid_argument ) {
     MessageBox( NULL, _T( ".NET Framework is unknown" ), _T( ".NET Framework" ), MB_OK | MB_ICONERROR);
   }
