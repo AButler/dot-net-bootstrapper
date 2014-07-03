@@ -24,9 +24,15 @@
     <ClInclude Include="DotNetBootstrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DotNetVersion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DotNetBootstrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DotNetVersion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
