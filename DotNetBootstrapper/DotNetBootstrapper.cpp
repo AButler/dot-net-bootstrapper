@@ -3,6 +3,7 @@
 #include "DotNetVersion.h"
 
 bool IsDotNetFxInstalled( const TCHAR* version );
+const TCHAR* GetFriendlyVersion( const TCHAR* version );
 
 /* 
   Usage:
@@ -39,6 +40,7 @@ bool IsDotNetFxInstalled( const TCHAR* version );
 */
 int APIENTRY _tWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow ) {
 
+  TCHAR message[MAX_PATH];
   int argCount;
   LPTSTR *szArgList;
 
@@ -56,7 +58,9 @@ int APIENTRY _tWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpC
 
     if( !isDotNetFxInstalled ) { 
       // .NET isn't installed
-      MessageBox( NULL, _T( ".NET Framework is NOT installed" ), _T( ".NET Framework" ), MB_OK | MB_ICONERROR );
+      _stprintf_s( message, _countof( message ), _T( ".NET Framework %s is required before you can run this application." ), GetFriendlyVersion( szArgList[0] ) );
+     
+      MessageBox( NULL, message, _T( ".NET Framework" ), MB_OK | MB_ICONERROR );
       return 1;
     }
 
@@ -91,7 +95,9 @@ int APIENTRY _tWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpC
     return exitCode;
    
   } catch ( const std::invalid_argument ) {
-    MessageBox( NULL, _T( ".NET Framework is unknown" ), _T( ".NET Framework" ), MB_OK | MB_ICONERROR);
+    _stprintf_s( message, _countof( message ), _T( ".NET Framework %s is not supported by DotNetBootstrapper." ), szArgList[0] );
+    
+    MessageBox( NULL, message, _T( ".NET Framework" ), MB_OK | MB_ICONERROR);
   }
 
   return 0;
@@ -133,4 +139,16 @@ bool IsDotNetFxInstalled( const TCHAR* version ) {
   }
 
   throw std::invalid_argument( "Unknown version" );
+}
+
+const TCHAR* GetFriendlyVersion( const TCHAR* version ) {
+  if( _tcscmp( version, _T( "v4.0-Full" ) ) == 0 ) {
+    // .NET 4.0 Full
+    return _T( "v4.0 (Full)" );
+  } else if( _tcscmp( version, _T( "v4.0-Client" ) ) == 0 ) {
+    // .NET 4.0 Client
+    return _T( "v4.0 (Client Profile)" );
+  }
+
+  return version;
 }
