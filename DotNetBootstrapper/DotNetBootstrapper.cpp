@@ -74,7 +74,7 @@ int APIENTRY _tWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpC
     ZeroMemory( &pi, sizeof( pi ) );
 
     // Create command line
-    WCHAR commandLine[MAX_PATH];
+    WCHAR commandLine[32768];
     _tcscpy_s( commandLine, _countof( commandLine ), _tcsninc( lpCmdLine, _tcslen( szArgList[0] ) + 1 ) );
       
     if( !CreateProcess( NULL, commandLine, NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi ) ) {
