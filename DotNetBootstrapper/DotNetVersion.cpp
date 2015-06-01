@@ -1,4 +1,7 @@
 #include "DotNetVersion.h"
+/*
+  Based on http://blogs.msdn.com/b/astebner/archive/2009/06/16/9763379.aspx
+*/
 
 /******************************************************************
 Function Name:	IsNetfx10Installed
