@@ -51,7 +51,10 @@ static const int g_dwNetfx451ReleaseVersion = 378675;
 // Version information for final release of .NET Framework 4.5.2
 static const int g_dwNetfx452ReleaseVersion = 379893;
 
-class DotNetVerison {
+// Version information for final release of .NET Framework 4.6
+const int g_dwNetfx46ReleaseVersion = 393295;
+
+class DotNetVersion {
 private:
   bool CheckNetfxBuildNumber(const TCHAR *pszNetfxRegKeyName, const TCHAR *pszNetfxRegKeyValue, const int iRequestedVersionMajor, const int iRequestedVersionMinor, const int iRequestedVersionBuild, const int iRequestedVersionRevision);
   bool RegistryGetValue(HKEY hk, const TCHAR * pszKey, const TCHAR * pszValue, DWORD dwType, LPBYTE data, DWORD dwSize);
@@ -67,4 +70,5 @@ public:
   bool IsNetfx45Installed();
   bool IsNetfx451Installed();
   bool IsNetfx452Installed();
+  bool IsNetfx46Installed();
 };

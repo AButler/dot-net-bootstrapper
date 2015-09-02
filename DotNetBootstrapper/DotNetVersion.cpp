@@ -13,7 +13,7 @@ Inputs:	        NONE
 Results:        true if the .NET Framework 1.0 is installed
 false otherwise
 ******************************************************************/
-bool DotNetVerison::IsNetfx10Installed()
+bool DotNetVersion::IsNetfx10Installed()
 {
   TCHAR szRegValue[MAX_PATH];
   return (RegistryGetValue(HKEY_LOCAL_MACHINE, g_szNetfx10RegKeyName, g_szNetfx10RegKeyValue, NULL, (LPBYTE)szRegValue, MAX_PATH));
@@ -29,7 +29,7 @@ Inputs:	        NONE
 Results:        true if the .NET Framework 1.1 is installed
 false otherwise
 ******************************************************************/
-bool DotNetVerison::IsNetfx11Installed()
+bool DotNetVersion::IsNetfx11Installed()
 {
   bool bRetValue = false;
   DWORD dwRegValue=0;
@@ -53,7 +53,7 @@ Inputs:	        NONE
 Results:        true if the .NET Framework 2.0 is installed
 false otherwise
 ******************************************************************/
-bool DotNetVerison::IsNetfx20Installed()
+bool DotNetVersion::IsNetfx20Installed()
 {
   bool bRetValue = false;
   DWORD dwRegValue=0;
@@ -77,7 +77,7 @@ Inputs:	        NONE
 Results:        true if the .NET Framework 3.0 is installed
 false otherwise
 ******************************************************************/
-bool DotNetVerison::IsNetfx30Installed()
+bool DotNetVersion::IsNetfx30Installed()
 {
   bool bRetValue = false;
   DWORD dwRegValue=0;
@@ -105,7 +105,7 @@ Inputs:	        NONE
 Results:        true if the .NET Framework 3.5 is installed
 false otherwise
 ******************************************************************/
-bool DotNetVerison::IsNetfx35Installed()
+bool DotNetVersion::IsNetfx35Installed()
 {
   bool bRetValue = false;
   DWORD dwRegValue=0;
@@ -133,7 +133,7 @@ Inputs:         NONE
 Results:        true if the .NET Framework 4 Client is installed
 false otherwise
 ******************************************************************/
-bool DotNetVerison::IsNetfx40ClientInstalled()
+bool DotNetVersion::IsNetfx40ClientInstalled()
 {
   bool bRetValue = false;
   DWORD dwRegValue=0;
@@ -160,7 +160,7 @@ Inputs:         NONE
 Results:        true if the .NET Framework 4 Full is installed
 false otherwise
 ******************************************************************/
-bool DotNetVerison::IsNetfx40FullInstalled()
+bool DotNetVersion::IsNetfx40FullInstalled()
 {
   bool bRetValue = false;
   DWORD dwRegValue=0;
@@ -187,7 +187,7 @@ Inputs:         NONE
 Results:        true if the .NET Framework 4.5 is installed
 false otherwise
 ******************************************************************/
-bool DotNetVerison::IsNetfx45Installed()
+bool DotNetVersion::IsNetfx45Installed()
 {
   bool bRetValue = false;
   DWORD dwRegValue=0;
@@ -211,7 +211,7 @@ Inputs:         NONE
 Results:        true if the .NET Framework 4.5.1 is installed
 false otherwise
 ******************************************************************/
-bool DotNetVerison::IsNetfx451Installed()
+bool DotNetVersion::IsNetfx451Installed()
 {
   bool bRetValue = false;
   DWORD dwRegValue=0;
@@ -235,7 +235,7 @@ Inputs:         NONE
 Results:        true if the .NET Framework 4.5.2 is installed
 false otherwise
 ******************************************************************/
-bool DotNetVerison::IsNetfx452Installed()
+bool DotNetVersion::IsNetfx452Installed()
 {
   bool bRetValue = false;
   DWORD dwRegValue=0;
@@ -250,6 +250,30 @@ bool DotNetVerison::IsNetfx452Installed()
 }
 
 /******************************************************************
+Function Name:	IsNetfx46Installed
+Description:	Uses the detection method recommended at
+                http://msdn.microsoft.com/en-us/library/ee942965(v=vs.110).aspx
+                to determine whether the .NET Framework 4.6 is
+                installed on the machine
+Inputs:         NONE
+Results:        true if the .NET Framework 4.6 is installed
+                false otherwise
+******************************************************************/
+bool DotNetVersion::IsNetfx46Installed()
+{
+	bool bRetValue = false;
+	DWORD dwRegValue=0;
+
+	if (RegistryGetValue(HKEY_LOCAL_MACHINE, g_szNetfx45RegKeyName, g_szNetfx45RegValueName, NULL, (LPBYTE)&dwRegValue, sizeof(DWORD)))
+	{
+		if (g_dwNetfx46ReleaseVersion <= dwRegValue)
+			bRetValue = true;
+	}
+
+	return bRetValue;
+}
+
+/******************************************************************
 Function Name:	CheckNetfxBuildNumber
 Description:	Retrieves the .NET Framework build number from
 the registry and validates that it is not a pre-release
@@ -258,7 +282,7 @@ Inputs:         NONE
 Results:        true if the build number in the registry is greater
 than or equal to the passed in version; false otherwise
 ******************************************************************/
-bool DotNetVerison::CheckNetfxBuildNumber(const TCHAR *pszNetfxRegKeyName, const TCHAR *pszNetfxRegKeyValue, const int iRequestedVersionMajor, const int iRequestedVersionMinor, const int iRequestedVersionBuild, const int iRequestedVersionRevision)
+bool DotNetVersion::CheckNetfxBuildNumber(const TCHAR *pszNetfxRegKeyName, const TCHAR *pszNetfxRegKeyValue, const int iRequestedVersionMajor, const int iRequestedVersionMinor, const int iRequestedVersionBuild, const int iRequestedVersionRevision)
 {
   TCHAR szRegValue[MAX_PATH];
   TCHAR *pszToken = NULL;
@@ -358,7 +382,7 @@ LPBYTE data - A buffer to save the retrieved data
 DWORD dwSize - The size of the data retrieved
 Results:		true if successful, false otherwise
 ******************************************************************/
-bool DotNetVerison::RegistryGetValue(HKEY hk, const TCHAR * pszKey, const TCHAR * pszValue, DWORD dwType, LPBYTE data, DWORD dwSize)
+bool DotNetVersion::RegistryGetValue(HKEY hk, const TCHAR * pszKey, const TCHAR * pszValue, DWORD dwType, LPBYTE data, DWORD dwSize)
 {
   HKEY hkOpened;
 
