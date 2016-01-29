@@ -23,6 +23,7 @@ const TCHAR* GetFriendlyVersion( const TCHAR* version );
 
   Supported Versions:
 
+    * v4.6.1      = .NET Framework v4.6.1
     * v4.6        = .NET Framework v4.6
     * v4.5.2      = .NET Framework v4.5.2
     * v4.5.1      = .NET Framework v4.5.1
@@ -107,7 +108,10 @@ int APIENTRY _tWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpC
 bool IsDotNetFxInstalled( const TCHAR* version ) {
   DotNetVersion dotNetVersion;
 
-  if( _tcscmp( version, _T( "v4.6" ) ) == 0 ) {
+  if( _tcscmp( version, _T( "v4.6.1" ) ) == 0 ) {
+    // .NET 4.6.1
+    return dotNetVersion.IsNetfx461Installed();
+  } else if( _tcscmp( version, _T( "v4.6" ) ) == 0 ) {
     // .NET 4.6
     return dotNetVersion.IsNetfx46Installed();
   } else if( _tcscmp( version, _T( "v4.5.2" ) ) == 0 ) {

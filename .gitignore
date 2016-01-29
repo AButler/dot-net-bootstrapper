@@ -20,14 +20,18 @@
 *.out
 *.app
 
-# Visual Studio
+# Visual C++ cache files
 *.suo
-/*.sdf
-/*.opensdf
-/ipch
+*.sdf
+*.ncb
+*.opendb
+*.opensdf
+ipch/
 *.user
 *.aps
+*.cachefile
 
 # Custom
 Debug
 Release
+.vs
