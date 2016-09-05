@@ -298,6 +298,30 @@ bool DotNetVersion::IsNetfx461Installed()
 }
 
 /******************************************************************
+Function Name:	IsNetfx462Installed
+Description:	Uses the detection method recommended at
+                http://msdn.microsoft.com/en-us/library/ee942965(v=vs.110).aspx
+                to determine whether the .NET Framework 4.6.1 is
+                installed on the machine
+Inputs:         NONE
+Results:        true if the .NET Framework 4.6.2 is installed
+                false otherwise
+******************************************************************/
+bool DotNetVersion::IsNetfx462Installed()
+{
+  bool bRetValue = false;
+  DWORD dwRegValue = 0;
+
+  if (RegistryGetValue(HKEY_LOCAL_MACHINE, g_szNetfx45RegKeyName, g_szNetfx45RegValueName, NULL, (LPBYTE)&dwRegValue, sizeof(DWORD)))
+  {
+    if (g_dwNetfx462ReleaseVersion <= dwRegValue)
+      bRetValue = true;
+  }
+
+  return bRetValue;
+}
+
+/******************************************************************
 Function Name:	CheckNetfxBuildNumber
 Description:	Retrieves the .NET Framework build number from
 the registry and validates that it is not a pre-release
