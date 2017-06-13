@@ -1,6 +1,6 @@
 #include "DotNetVersion.h"
 /*
-  Based on http://blogs.msdn.com/b/astebner/archive/2009/06/16/9763379.aspx
+  Based on https://blogs.msdn.microsoft.com/astebner/2009/06/16/sample-code-to-detect-net-framework-install-state-and-service-pack-level/
 */
 
 /******************************************************************
@@ -315,6 +315,30 @@ bool DotNetVersion::IsNetfx462Installed()
   if (RegistryGetValue(HKEY_LOCAL_MACHINE, g_szNetfx45RegKeyName, g_szNetfx45RegValueName, NULL, (LPBYTE)&dwRegValue, sizeof(DWORD)))
   {
     if (g_dwNetfx462ReleaseVersion <= dwRegValue)
+      bRetValue = true;
+  }
+
+  return bRetValue;
+}
+
+/******************************************************************
+Function Name:	IsNetfx47Installed
+Description:	Uses the detection method recommended at
+https://msdn.microsoft.com/en-us/library/ee942965(v=vs.110).aspx
+to determine whether the .NET Framework 4.7 is
+installed on the machine
+Inputs:         NONE
+Results:        true if the .NET Framework 4.7 is installed
+false otherwise
+******************************************************************/
+bool DotNetVersion::IsNetfx47Installed()
+{
+  bool bRetValue = false;
+  DWORD dwRegValue = 0;
+
+  if (RegistryGetValue(HKEY_LOCAL_MACHINE, g_szNetfx45RegKeyName, g_szNetfx45RegValueName, NULL, (LPBYTE)&dwRegValue, sizeof(DWORD)))
+  {
+    if (g_dwNetfx47ReleaseVersion <= dwRegValue)
       bRetValue = true;
   }
 

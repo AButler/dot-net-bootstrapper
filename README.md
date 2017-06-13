@@ -21,6 +21,7 @@ DotNetBootstrapper.exe <Version> <Application> [<Arguments>]
 
 | `<Version>`     | .NET Framework Version                  |
 | --------------- | --------------------------------------- |
+| `v4.7`          | .NET Framework v4.7                     |
 | `v4.6.2`        | .NET Framework v4.6.2                   |
 | `v4.6.1`        | .NET Framework v4.6.1                   |
 | `v4.6`          | .NET Framework v4.6                     |
