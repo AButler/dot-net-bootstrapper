@@ -23,6 +23,7 @@ const TCHAR* GetFriendlyVersion( const TCHAR* version );
 
   Supported Versions:
 
+    * v4.7.2      = .NET Framework v4.7.2
     * v4.7.1      = .NET Framework v4.7.1
     * v4.7        = .NET Framework v4.7
     * v4.6.2      = .NET Framework v4.6.2
@@ -111,7 +112,10 @@ int APIENTRY _tWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpC
 bool IsDotNetFxInstalled( const TCHAR* version ) {
   DotNetVersion dotNetVersion;
 
-  if( _tcscmp( version, _T( "v4.7.1" ) ) == 0 ) {
+  if( _tcscmp( version, _T( "v4.7.2" ) ) == 0 ) {
+    // .NET 4.7.2
+    return dotNetVersion.IsNetfx472Installed();
+  } else if( _tcscmp( version, _T( "v4.7.1" ) ) == 0 ) {
     // .NET 4.7.1
     return dotNetVersion.IsNetfx471Installed();
   } else if( _tcscmp( version, _T( "v4.7" ) ) == 0 ) {
