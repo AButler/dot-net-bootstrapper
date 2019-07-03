@@ -47,4 +47,4 @@ DotNetBootstrapper.exe v4.5 C:\Folder\Program.exe -Foo -Bar
 
 ### Credits
 
-Based on the sample code from https://docs.microsoft.com/en-us/office365/troubleshoot/administration/switch-channel-for-office-365
+Based on the sample code from https://blogs.msdn.microsoft.com/astebner/2009/06/16/sample-code-to-detect-net-framework-install-state-and-service-pack-level/
