@@ -44,3 +44,7 @@ DotNetBootstrapper.exe <Version> <Application> [<Arguments>]
 ```Batchfile
 DotNetBootstrapper.exe v4.5 C:\Folder\Program.exe -Foo -Bar
 ```
+
+### Credits
+
+Based on the sample code from https://docs.microsoft.com/en-us/office365/troubleshoot/administration/switch-channel-for-office-365
