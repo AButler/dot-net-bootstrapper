@@ -69,6 +69,9 @@ const int g_dwNetfx471ReleaseVersion = 461308;
 // Version information for final release of .NET Framework 4.7.2
 const int g_dwNetfx472ReleaseVersion = 461808;
 
+// Version information for final release of .NET Framework 4.8
+const int g_dwNetfx48ReleaseVersion = 528040;
+
 class DotNetVersion {
 private:
   bool CheckNetfxBuildNumber(const TCHAR *pszNetfxRegKeyName, const TCHAR *pszNetfxRegKeyValue, const int iRequestedVersionMajor, const int iRequestedVersionMinor, const int iRequestedVersionBuild, const int iRequestedVersionRevision);
@@ -91,4 +94,5 @@ public:
   bool IsNetfx47Installed();
   bool IsNetfx471Installed();
   bool IsNetfx472Installed();
+  bool IsNetfx48Installed();
 };
